@@ -1,4 +1,6 @@
 import 'react-native-gesture-handler';
+import React from 'react';
+import { initializeApp, getApps } from 'firebase/app';
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 import { ThemeProvider } from 'styled-components';
@@ -9,10 +11,14 @@ import {
 import { useFonts as useLato, Lato_400Regular } from '@expo-google-fonts/lato';
 
 import { theme } from './src/infrastructure/theme';
-import { RestaurantsContextProvider } from './src/services/restaurants/restaurants.context';
-import { LocationContextProvider } from './src/services/location/location.context';
-import { FavouritesContextProvider } from './src/services/favourites/favourites.context';
+
+import firebaseConfig from './src/infrastructure/keys';
 import { Navigation } from './src/infrastructure/navigation';
+import { AuthenticationContextProvider } from './src/services/authentication/authentication.context';
+
+if (!getApps().length) {
+  initializeApp(firebaseConfig);
+}
 
 export default function App() {
   const [oswaldLoaded] = useOswald({
@@ -30,13 +36,9 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <FavouritesContextProvider>
-          <LocationContextProvider>
-            <RestaurantsContextProvider>
-              <Navigation />
-            </RestaurantsContextProvider>
-          </LocationContextProvider>
-        </FavouritesContextProvider>
+        <AuthenticationContextProvider>
+          <Navigation />
+        </AuthenticationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style='auto' />
     </>

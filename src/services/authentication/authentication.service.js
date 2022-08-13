@@ -1,15 +1,12 @@
 import {
-  getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
 
-export const loginRequest = (email, password) => {
-  const auth = getAuth();
+export const loginRequest = (auth, email, password) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
 
-export const registerRequest = (email, password) => {
-  const auth = getAuth();
+export const registerRequest = (auth, email, password) => {
   return createUserWithEmailAndPassword(auth, email, password);
 };
