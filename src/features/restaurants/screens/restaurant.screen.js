@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { FlatList, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { ActivityIndicator, Colors } from 'react-native-paper';
 import styled from 'styled-components/native';
 
@@ -11,6 +11,7 @@ import { FavouritesContext } from '../../../services/favourites/favourites.conte
 import { Search } from '../components/search.component';
 import { FavouritesBar } from '../../../components/favourites/favourites-bar.component';
 import { RestaurantList } from '../components/restaurant-list.styles';
+import { FadeInView } from '../../../components/animations/fade.animation';
 
 const Loading = styled(ActivityIndicator)`
   margin-left: -25px;
@@ -51,7 +52,9 @@ export const RestaurantsScreen = ({ navigation }) => {
             }
           >
             <Spacer size='large' position='bottom'>
-              <RestaurantInfoCard restaurant={item} />
+              <FadeInView>
+                <RestaurantInfoCard restaurant={item} />
+              </FadeInView>
             </Spacer>
           </TouchableOpacity>
         )}
